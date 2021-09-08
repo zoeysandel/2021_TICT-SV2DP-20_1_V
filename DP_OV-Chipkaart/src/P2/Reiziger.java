@@ -1,5 +1,6 @@
 package P2;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Reiziger {
     int id;
@@ -29,7 +30,7 @@ public class Reiziger {
 
     public String getNaam()
     {
-        return this.tussenvoegsel == null ? voorletters + " " + achternaam : voorletters + " " + tussenvoegsel + " " + achternaam;
+        return Objects.equals(this.tussenvoegsel, "") ? voorletters + " " + achternaam : voorletters + " " + tussenvoegsel + " " + achternaam;
     }
 
     public LocalDate getGeboortedatum()
@@ -55,6 +56,15 @@ public class Reiziger {
     public String getAchternaam()
     {
         return achternaam;
+    }
+
+    public void setAchternaam(String achternaam)
+    {
+        this.achternaam = achternaam;
+    }
+
+    public void setTussenvoegsel(String tussenvoegsel) {
+        this.tussenvoegsel = tussenvoegsel;
     }
 
     public String getTussenvoegsel()

@@ -9,4 +9,5 @@ public interface ReizigerDAO
     public boolean delete(Reiziger reiziger);
 
     public List<Reiziger> findAll();
+    public Reiziger findById(int id);
 }

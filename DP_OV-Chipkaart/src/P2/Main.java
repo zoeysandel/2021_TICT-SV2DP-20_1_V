@@ -50,6 +50,17 @@ public class Main {
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers\n");
 
-        // Voeg aanvullende tests van de ontbrekende CRUD-operaties in.
+        // Sietske komt er achter dat zij een andere achternaam blijkt te hebben en wil deze natuurlijk veranderen
+        sietske.setAchternaam("Pietersen");
+        rdao.update(sietske);
+        // Met de findById methode controleren we of haar achternaam daadwerkelijk is veranderd
+        Reiziger r = rdao.findById(77);
+        System.out.println(r);
+        System.out.println();
+
+        System.out.println("Momenteel bevat de database: " + reizigers.size() + " reizigers");
+        rdao.delete(sietske);
+        reizigers = rdao.findAll();
+        System.out.println("Na delete bevat de database: " + reizigers.size() + " reizigers");
     }
 }

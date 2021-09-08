@@ -1,6 +1,7 @@
 package P2;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,9 +38,9 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     public boolean update(Reiziger reiziger) {
         try {
             String sql = "UPDATE reiziger SET "
-                    + "voorletters = ? "
-                    + "tussenvoegsel = ? "
-                    + "achternaam = ? "
+                    + "voorletters = ?, "
+                    + "tussenvoegsel = ?, "
+                    + "achternaam = ?, "
                     + "geboortedatum = ? "
                     + "WHERE reiziger_id = ?";
 
@@ -59,9 +60,52 @@ public class ReizigerDAOPsql implements ReizigerDAO {
     }
 
     @Override
+    public Reiziger findById(int id) {
+        try {
+            String sql = "SELECT * FROM reiziger WHERE reiziger_id = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet res = stmt.executeQuery();
+
+            while(res.next()) {
+                int reiziger_id = res.getInt(
+                        "reiziger_id"
+                );
+                String voorletters = res.getString(
+                        "voorletters"
+                );
+                String tussenvoegsel = res.getString(
+                        "tussenvoegsel"
+                );
+                String achternaam = res.getString(
+                        "achternaam"
+                );
+                LocalDate geboortedatum = res.getDate(
+                        "geboortedatum"
+                ).toLocalDate();
+
+                Reiziger r = new Reiziger(
+                        reiziger_id,
+                        voorletters,
+                        tussenvoegsel,
+                        achternaam,
+                        geboortedatum
+                );
+                return r;
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
+        return null;
+    }
+
+    @Override
     public boolean delete(Reiziger reiziger) {
         try {
-            String sql = "DELETE reizigers WHERE reiziger_id = ?";
+            String sql = "DELETE FROM reiziger WHERE reiziger_id = ?";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, reiziger.getId());
