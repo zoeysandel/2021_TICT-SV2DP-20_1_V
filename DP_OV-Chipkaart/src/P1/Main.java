@@ -1,16 +1,18 @@
-import javax.xml.transform.Result;
+package P1;
+
 import java.sql.*;
 import java.util.Properties;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException
+    {
         int counter = 0;
 
         String db = "jdbc:postgresql://localhost:5432/ovchip";
 
         Properties props = new Properties();
-        props.setProperty("user","postgres");
-        props.setProperty("password","root");
+        props.setProperty("user", "postgres");
+        props.setProperty("password", "root");
 
         Connection conn = DriverManager.getConnection(db, props);
 
@@ -21,7 +23,7 @@ public class Main {
         while (res.next()) {
             counter++;
             System.out.println(
-                    "#" + counter + " " + res.getString("voorletters") + ". " + res.getString("achternaam") + " " + "(" + res.getString("geboortedatum") + ")");
+                    "#" + counter + ": " + res.getString("voorletters") + ". " + res.getString("achternaam") + " " + "(" + res.getString("geboortedatum") + ")");
         }
     }
 }
