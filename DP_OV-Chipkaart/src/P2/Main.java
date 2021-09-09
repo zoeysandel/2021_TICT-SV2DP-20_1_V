@@ -6,32 +6,42 @@ import java.util.List;
 import java.util.Properties;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        Connection conn = null;
+
+        try {
+            conn = Main.getConnection();
+            System.out.println("Database connected");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ReizigerDAO rdao = new ReizigerDAOPsql(conn);
+            testReizigerDAO(rdao);
+            conn.close();
+        }
+    }
+
+    private static Connection getConnection() throws SQLException {
         String db = "jdbc:postgresql://localhost:5432/ovchip";
 
         Properties props = new Properties();
         props.setProperty("user", "postgres");
         props.setProperty("password", "root");
 
-        try {
-            Connection conn = DriverManager.getConnection(db, props);
-            ReizigerDAO rdao = new ReizigerDAOPsql(conn);
-            testReizigerDAO(rdao);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Connection conn = DriverManager.getConnection(db, props);
+        conn.setAutoCommit(true);
+        return conn;
     }
 
     /**
      * P2. Reiziger DAO: persistentie van een klasse
-     *
+     * <p>
      * Deze methode test de CRUD-functionaliteit van de Reiziger DAO
      *
      * @throws SQLException
      */
 
-    private static void testReizigerDAO (ReizigerDAO rdao) throws SQLException {
+    private static void testReizigerDAO(ReizigerDAO rdao) throws SQLException {
         System.out.println("\n---------- Test ReizigerDAO -------------");
 
         // Haal alle reizigers op uit de database

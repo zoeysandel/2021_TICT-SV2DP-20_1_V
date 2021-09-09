@@ -3,11 +3,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Reiziger {
-    int id;
-    String voorletters;
-    String tussenvoegsel;
-    String achternaam;
-    LocalDate geboortedatum;
+    private Integer id;
+    private String voorletters;
+    private String tussenvoegsel;
+    private String achternaam;
+    private LocalDate geboortedatum;
 
     public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, LocalDate geboortedatum)
     {
@@ -23,9 +23,11 @@ public class Reiziger {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(Integer id)
     {
-        this.id = id;
+        if (id != null) {
+            this.id = id;
+        }
     }
 
     public String getNaam()
@@ -40,7 +42,9 @@ public class Reiziger {
 
     public void setGeboortedatum(LocalDate geboortedatum)
     {
-        this.geboortedatum = geboortedatum;
+        if (geboortedatum != null) {
+            this.geboortedatum = geboortedatum;
+        }
     }
 
     public String toString()
@@ -60,11 +64,16 @@ public class Reiziger {
 
     public void setAchternaam(String achternaam)
     {
-        this.achternaam = achternaam;
+        if (achternaam != null) {
+            this.achternaam = achternaam;
+        }
     }
 
-    public void setTussenvoegsel(String tussenvoegsel) {
-        this.tussenvoegsel = tussenvoegsel;
+    public void setTussenvoegsel(String tussenvoegsel)
+    {
+        if (tussenvoegsel != null) {
+            this.tussenvoegsel = tussenvoegsel;
+        }
     }
 
     public String getTussenvoegsel()
