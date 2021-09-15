@@ -138,6 +138,9 @@ public class ReizigerDAOPsql implements ReizigerDAO
                         achternaam,
                         geboortedatum
                 );
+
+                Adres a = adao.findByReiziger(r);
+                r.setAdres(a);
                 return r;
             }
         }

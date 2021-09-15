@@ -111,4 +111,10 @@ public class Reiziger {
     {
         return tussenvoegsel;
     }
+
+    public void setAdres(Adres a) {
+        if (a != null) {
+            this.adres = a;
+        }
+    }
 }

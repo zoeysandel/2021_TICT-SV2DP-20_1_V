@@ -63,6 +63,8 @@ INSERT INTO afdelingen(anr, naam, locatie, hoofd) VALUES(nextval('afdelingsnumme
 INSERT INTO afdelingen(anr, naam, locatie, hoofd) VALUES(nextval('afdelingsnummer_seq'), 'TEST5', 'TEST5', 8000);
 INSERT INTO afdelingen(anr, naam, locatie, hoofd) VALUES(nextval('afdelingsnummer_seq'), 'TEST6', 'TEST6', 8000);
 
+-- TODO: sequence boven 100 = error
+
 -- [2021-09-14 23:51:06] [22003] ERROR: numeric field overflow
 -- [2021-09-14 23:51:06] Detail: A field with precision 2, scale 0 must round to an absolute value less than 10^2.
 
@@ -92,12 +94,13 @@ CREATE TABLE adressen (
     FOREIGN KEY (med_mnr) REFERENCES medewerkers (mnr)
 );
 
-
 -- S1.5. Commissie
 --
 -- De commissie van een medewerker (kolom `comm`) moet een bedrag bevatten als de medewerker een functie als
 -- 'VERKOPER' heeft, anders moet de commissie NULL zijn. Schrijf hiervoor een beperkingsregel. Gebruik onderstaande
 -- 'illegale' INSERTs om je beperkingsregel te controleren.
+
+-- TODO: add constraint
 INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm)
 VALUES (8001, 'MULLER', 'TJ', 'TRAINER', 7566, '1982-08-18', 2000, 500);
 
