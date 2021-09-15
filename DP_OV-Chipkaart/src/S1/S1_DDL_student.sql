@@ -26,7 +26,6 @@
 -- alle wijzigingen in de database terug met de queries helemaal onderaan.
 -- ------------------------------------------------------------------------
 
-
 -- S1.1. Geslacht
 --
 -- Voeg een kolom `geslacht` toe aan de medewerkerstabel.
@@ -98,7 +97,10 @@ CREATE TABLE adressen (
 --
 -- De commissie van een medewerker (kolom `comm`) moet een bedrag bevatten als de medewerker een functie als
 -- 'VERKOPER' heeft, anders moet de commissie NULL zijn. Schrijf hiervoor een beperkingsregel. Gebruik onderstaande
--- 'illegale' INSERTs om je beperkingsregel te controleren.
+-- 'illegale' INSERTs om je beperkingsregel te controleren
+
+ALTER TABLE medewerkers DROP CONSTRAINT IF EXISTS functie;
+ALTER TABLE medewerkers ADD CONSTRAINT functie CHECK ((functie != 'VERKOPER' AND comm IS NULL) OR functie = 'VERKOPER' AND comm IS NOT NULL);
 
 -- TODO: add constraint
 INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm)
@@ -106,8 +108,6 @@ VALUES (8001, 'MULLER', 'TJ', 'TRAINER', 7566, '1982-08-18', 2000, 500);
 
 INSERT INTO medewerkers (mnr, naam, voorl, functie, chef, gbdatum, maandsal, comm)
 VALUES (8002, 'JANSEN', 'M', 'VERKOPER', 7698, '1981-07-17', 1000, NULL);
-
-
 
 -- -------------------------[ HU TESTRAAMWERK ]--------------------------------
 -- Met onderstaande query kun je je code testen. Zie bovenaan dit bestand
