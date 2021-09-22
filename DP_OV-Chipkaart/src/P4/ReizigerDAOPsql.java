@@ -160,9 +160,10 @@ public class ReizigerDAOPsql implements ReizigerDAO
     public List<Reiziger> findAll()
     {
         List<Reiziger> reizigers = new ArrayList<>();
+        List<Adres> adressen = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM reiziger";
+            String sql = "SELECT * FROM reiziger, adres";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet res = stmt.executeQuery();
@@ -176,6 +177,7 @@ public class ReizigerDAOPsql implements ReizigerDAO
                         res.getDate("geboortedatum").toLocalDate());
                 reizigers.add(r);
             }
+            this.adao.findAll();
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());

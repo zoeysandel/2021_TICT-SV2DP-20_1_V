@@ -136,6 +136,7 @@ public class AdresDAOPsql implements AdresDAO
                         res.getInt("reiziger_id"));
                 adressen.add(a);
             }
+            this.rdao.findAll();
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
