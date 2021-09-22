@@ -1,6 +1,8 @@
 package P4;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Reiziger {
@@ -13,7 +15,7 @@ public class Reiziger {
     private Adres adres;
     private Integer kaartnummer;
 
-    private OVChipkaart ovchipkaart;
+    private List<OVChipkaart> ovchipkaarten = new ArrayList<>();
 
     public Reiziger() {}
 
@@ -36,7 +38,7 @@ public class Reiziger {
         this.adres = adres;
     }
 
-    public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, LocalDate geboortedatum, Adres adres, OVChipkaart ovchipkaart)
+    public Reiziger(int id, String voorletters, String tussenvoegsel, String achternaam, LocalDate geboortedatum, Adres adres, List<OVChipkaart> ovchipkaarten)
     {
         this.id = id;
         this.voorletters = voorletters;
@@ -44,7 +46,7 @@ public class Reiziger {
         this.achternaam = achternaam;
         this.geboortedatum = geboortedatum;
         this.adres = adres;
-        this.ovchipkaart = ovchipkaart;
+        this.ovchipkaarten = ovchipkaarten;
     }
 
     public Integer getKaartnummer() {
@@ -62,8 +64,8 @@ public class Reiziger {
         return adres;
     }
 
-    public OVChipkaart getOVChipkaart() {
-        return ovchipkaart;
+    public List<OVChipkaart> getOVChipkaarten() {
+        return ovchipkaarten;
     }
 
     public int getId()
@@ -149,7 +151,7 @@ public class Reiziger {
 
     public void setOVChipkaart(OVChipkaart ovchipkaart) {
         if (ovchipkaart != null) {
-            this.ovchipkaart = ovchipkaart;
+            this.ovchipkaarten.add(ovchipkaart);
         }
     }
 }

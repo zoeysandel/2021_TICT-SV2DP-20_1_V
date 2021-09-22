@@ -10,8 +10,7 @@ public class OVChipkaart {
     private Integer reiziger_id;
     private Reiziger reiziger;
 
-    public OVChipkaart() {
-    }
+    public OVChipkaart() { }
 
     public OVChipkaart(Integer kaart_nummer, LocalDate geldig_tot, Integer klasse, double saldo, Integer reiziger_id) {
         this.kaart_nummer = kaart_nummer;
