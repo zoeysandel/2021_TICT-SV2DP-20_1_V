@@ -55,11 +55,13 @@ SELECT medewerkers.naam, a.naam, a.locatie FROM medewerkers INNER JOIN afdelinge
 -- S3.5.
 -- Geef de namen van alle cursisten die staan ingeschreven voor de cursus S02 van 12 april 2019
 -- DROP VIEW IF EXISTS s3_5; CREATE OR REPLACE VIEW s3_5 AS                                                     -- [TEST]
+SELECT naam FROM medewerkers INNER JOIN inschrijvingen i on medewerkers.mnr = i.cursist WHERE i.cursus = 'S02' AND i.begindatum = '2019-04-12';
 
 
 -- S3.6.
 -- Geef de namen van alle medewerkers en hun toelage.
 -- DROP VIEW IF EXISTS s3_6; CREATE OR REPLACE VIEW s3_6 AS                                                     -- [TEST]
+SELECT naam, maandsal FROM medewerkers;
 
 
 
