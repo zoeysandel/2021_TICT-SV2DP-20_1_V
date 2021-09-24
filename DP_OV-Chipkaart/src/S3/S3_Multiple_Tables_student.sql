@@ -36,8 +36,7 @@ SELECT cursus, begindatum, lengte, naam FROM uitvoeringen INNER JOIN cursussen c
 -- Geef in twee kolommen naast elkaar de achternaam van elke cursist (`cursist`)
 -- van alle S02-cursussen, met de achternaam van zijn cursusdocent (`docent`).
 -- DROP VIEW IF EXISTS s3_2; CREATE OR REPLACE VIEW s3_2 AS                                                     -- [TEST]
-SELECT naam FROM medewerkers INNER JOIN uitvoeringen u on medewerkers.mnr = u.docent INNER JOIN inschrijvingen i on medewerkers.mnr = i.cursist INNER JOIN cursussen c on u.cursus = c.code;
--- TODO: geen idee
+SELECT m2.naam AS cursist, m.naam AS docent FROM uitvoeringen u INNER JOIN medewerkers m on m.mnr = u.docent INNER JOIN inschrijvingen i on i.cursus = u.cursus INNER JOIN medewerkers m2 on m2.mnr = i.cursist WHERE i.cursus = 'S02' AND i.begindatum = u.begindatum;
 
 -- S3.3.
 -- Geef elke afdeling (`afdeling`) met de naam van het hoofd van die
