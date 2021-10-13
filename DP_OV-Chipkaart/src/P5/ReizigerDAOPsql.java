@@ -188,9 +188,10 @@ public class ReizigerDAOPsql implements ReizigerDAO
                         res.getString("achternaam"),
                         res.getDate("geboortedatum").toLocalDate());
                 reizigers.add(r);
-            }
-            this.adao.findAll();
 
+                Adres adres = this.adao.findByReiziger(r);
+                r.setAdres(adres);
+            }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }

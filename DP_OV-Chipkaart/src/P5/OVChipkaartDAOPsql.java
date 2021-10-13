@@ -116,4 +116,59 @@ public class OVChipkaartDAOPsql implements OVChipkaartDAO {
         }
         return ovchipkaarten;
     }
+
+    @Override
+    public List<OVChipkaart> findByProduct(Product product) {
+        List<OVChipkaart> ovchipkaarten = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ov_chipkaart o INNER JOIN ov_chipkaart_product ON o.kaart_nummer = ov_chipkaart_product.kaart_nummer WHERE product_nummer = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, product.getProductNummer());
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                OVChipkaart o = new OVChipkaart
+                        (
+                                res.getInt("kaart_nummer"),
+                                res.getDate("geldig_tot").toLocalDate(),
+                                res.getInt("klasse"),
+                                res.getDouble("saldo"),
+                                res.getInt("reiziger_id")
+                        );
+                ovchipkaarten.add(o);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return ovchipkaarten;
+    }
+
+    @Override
+    public List<OVChipkaart> findAll() {
+        List<OVChipkaart> ovchipkaarten = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ov_chipkaart";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                OVChipkaart o = new OVChipkaart
+                        (
+                                res.getInt("kaart_nummer"),
+                                res.getDate("geldig_tot").toLocalDate(),
+                                res.getInt("klasse"),
+                                res.getDouble("saldo"),
+                                res.getInt("reiziger_id")
+                        );
+                ovchipkaarten.add(o);
+
+                List<Product> producten = pdao.findByOVChipkaart(o);
+                o.setProducten(producten);
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return ovchipkaarten;
+    }
 }

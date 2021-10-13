@@ -1,6 +1,8 @@
 package P5;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OVChipkaart {
     private Integer kaart_nummer;
@@ -9,6 +11,8 @@ public class OVChipkaart {
     private double saldo;
     private Integer reiziger_id;
     private Reiziger reiziger;
+
+    private List<Product> producten = new ArrayList<>();
 
     public OVChipkaart() { }
 
@@ -60,5 +64,11 @@ public class OVChipkaart {
                 + "Momenteel heeft de ovchipkaart een saldo van "
                 + this.getSaldo() +
                 " euro.";
+    }
+
+    public void setProducten(List<Product> producten) {
+        if (!producten.isEmpty()) {
+            this.producten = producten;
+        }
     }
 }

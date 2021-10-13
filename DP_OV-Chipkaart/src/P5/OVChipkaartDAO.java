@@ -9,4 +9,6 @@ public interface OVChipkaartDAO
     public boolean delete(OVChipkaart ovchipkaart);
 
     public List<OVChipkaart> findByReiziger(Reiziger reiziger);
+    public List<OVChipkaart> findByProduct(Product product);
+    public List<OVChipkaart> findAll();
 }

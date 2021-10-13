@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAOPsql implements ProductDAO {
-    private final Connection conn;
+    private Connection conn;
     private OVChipkaartDAOPsql odao = null;
 
     public ProductDAOPsql(Connection conn) throws SQLException {
@@ -128,6 +128,9 @@ public class ProductDAOPsql implements ProductDAO {
                 float prijs = resultSet.getFloat("prijs");
                 Product product = new Product(productNummer, naam, beschrijving, prijs);
                 alleProducten.add(product);
+
+                List<OVChipkaart> ovChipkaarten= this.odao.findByProduct(product);
+                product.setOvChipkaart(ovChipkaarten);
             }
         } catch (SQLException sqlException) {
             System.err.println("Er heeft zich een fout opgetreden in findAll");

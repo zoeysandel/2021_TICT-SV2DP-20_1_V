@@ -30,34 +30,37 @@
 -- Produceer een overzicht van alle cursusuitvoeringen; geef de
 -- code, de begindatum, de lengte en de naam van de docent.
 -- DROP VIEW IF EXISTS s3_1; CREATE OR REPLACE VIEW s3_1 AS                                                     -- [TEST]
-
+SELECT cursus, begindatum, lengte, naam FROM uitvoeringen INNER JOIN cursussen c on uitvoeringen.cursus = c.code INNER JOIN medewerkers m on uitvoeringen.docent = m.mnr;
 
 -- S3.2.
 -- Geef in twee kolommen naast elkaar de achternaam van elke cursist (`cursist`)
 -- van alle S02-cursussen, met de achternaam van zijn cursusdocent (`docent`).
 -- DROP VIEW IF EXISTS s3_2; CREATE OR REPLACE VIEW s3_2 AS                                                     -- [TEST]
-
+SELECT m2.naam AS cursist, m.naam AS docent FROM uitvoeringen u INNER JOIN medewerkers m on m.mnr = u.docent INNER JOIN inschrijvingen i on i.cursus = u.cursus INNER JOIN medewerkers m2 on m2.mnr = i.cursist WHERE i.cursus = 'S02' AND i.begindatum = u.begindatum;
 
 -- S3.3.
 -- Geef elke afdeling (`afdeling`) met de naam van het hoofd van die
 -- afdeling (`hoofd`).
 -- DROP VIEW IF EXISTS s3_3; CREATE OR REPLACE VIEW s3_3 AS                                                     -- [TEST]
-
+SELECT afdelingen.naam, m.chef FROM afdelingen INNER JOIN medewerkers m on afdelingen.anr = m.afd;
 
 -- S3.4.
 -- Geef de namen van alle medewerkers, de naam van hun afdeling (`afdeling`)
 -- en de bijbehorende locatie.
 -- DROP VIEW IF EXISTS s3_4; CREATE OR REPLACE VIEW s3_4 AS                                                     -- [TEST]
+SELECT medewerkers.naam, a.naam, a.locatie FROM medewerkers INNER JOIN afdelingen a on medewerkers.afd = a.anr;
 
 
 -- S3.5.
 -- Geef de namen van alle cursisten die staan ingeschreven voor de cursus S02 van 12 april 2019
 -- DROP VIEW IF EXISTS s3_5; CREATE OR REPLACE VIEW s3_5 AS                                                     -- [TEST]
+SELECT naam FROM medewerkers INNER JOIN inschrijvingen i on medewerkers.mnr = i.cursist WHERE i.cursus = 'S02' AND i.begindatum = '2019-04-12';
 
 
 -- S3.6.
 -- Geef de namen van alle medewerkers en hun toelage.
 -- DROP VIEW IF EXISTS s3_6; CREATE OR REPLACE VIEW s3_6 AS                                                     -- [TEST]
+SELECT naam, maandsal FROM medewerkers;
 
 
 
