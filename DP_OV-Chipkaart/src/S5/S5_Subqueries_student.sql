@@ -68,7 +68,6 @@ SELECT naam
 FROM medewerkers
 WHERE mnr NOT IN (SELECT chef FROM medewerkers m WHERE chef IS NOT NULL);
 
--- TODO: snap de bedoeling niet van 5.5
 -- S5.5.
 -- Geef cursuscode en begindatum van alle uitvoeringen van programmeercursussen
 -- ('BLD') in 2020.
@@ -76,7 +75,8 @@ WHERE mnr NOT IN (SELECT chef FROM medewerkers m WHERE chef IS NOT NULL);
 SELECT cursus, begindatum
 FROM uitvoeringen
 WHERE begindatum >= '2020-01-01'
-  and begindatum < '2021-01-01' ...;
+  and begindatum < '2021-01-01'
+  and cursus IN (SELECT cursus FROM uitvoeringen WHERE cursus != 'OAG');
 
 -- S5.6.
 -- Geef van alle cursusuitvoeringen: de cursuscode, de begindatum en het
